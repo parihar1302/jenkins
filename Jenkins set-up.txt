@@ -1,0 +1,74 @@
+JENKINS CONCEPTS on ubuntu 16.04                 https://devops4solutions.com/installing-java-jenkins-on-aws-ec2-ubuntu-16-04/
+
+* open source server written in java
+
+* it detects the changes in version control (svn or git) nd perfom some task like build, test, deploy & integrate
+
+##STEP-1.) JAVA INSTALLATION
+-------------------------------------
+*  sudo add-apt-repository ppa:webupd8team/java
+
+* sudo apt-get update
+
+* sudo apt-get install openjdk-8-jdk
+
+* java -version
+
+##note{Set JAVA_HOME:}
+
+* whereis javac
+
+* whereis java
+
+* ls .bashrc
+
+* $JAVA_HOME
+
+* echo $JAVA_HOME
+
+* nano .bashrc
+export JAVA_HOME=/usr
+export PATH=$JAVA_HOME/bin:$PATH      ##{type at last and save it}
+
+
+
+##STEP-2>) JENKINS INSTALLATION
+---------------------------------------
+* wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+
+* sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+
+* sudo apt-get update
+
+* sudo apt-get install jenkins
+
+##{note:- if you want to change jenkins pport or if some other service like Tomcat running on 8080 than can change Jenkins port from /etc/default/jenkins}
+
+* vi /etc/default/jenkins
+HTTP_PORT=8080         ##{Can modify as 8081 or anything here}
+
+
+
+
+Step-3.) Go to the browser : <ip_address>:8080     ##{note open port 8080 on console}
+---------------------------
+
+* sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+##note:-{paste the given password on jenkins console}
+
+
+##Error:-  If page os not loading than try below solution
+--------
+Solution:- Opening Firewall
+* sudo ufw allow 8080
+
+* sudo ufw status         ##{status is active which show traffic is routing to your port 8080}
+
+## {Note: If the firewall is inactive, the following commands will allow OpenSSH and enable the firewall}
+
+* sudo ufw allow OpenSSH
+
+* sudo ufw enable
+
+
+
